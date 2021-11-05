@@ -2,6 +2,8 @@ const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
 
+require("dotenv").config()
+
 const matchRouter = require("./router/match-router")
 const HttpError = require("./models/http.error")
 
@@ -26,7 +28,7 @@ app.use((error, req, res, next) => {
 })
 
 mongoose
-  .connect(process.env.DB_LINK, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.DB_HOST, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(5090))
   .then(() => console.log("server start 5090"))
   .catch(err => console.log(err))

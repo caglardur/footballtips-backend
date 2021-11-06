@@ -28,7 +28,6 @@ const getMatchesByDate = async (req, res, next) => {
   dateStart.setHours(dateStart.getHours() + timeZoneParse / 60)
   const dateEnd = new Date(dateStart)
   dateEnd.setDate(dateEnd.getDate() + 1)
- 
 
   let matches
   try {
@@ -51,7 +50,7 @@ const getMatchesByTeams = async (req, res, next) => {
   let lastMatches
 
   try {
-    lastMatches = await Match.find({ $and: [{ $or: [{ $or: [{ "teams.home.id": homeTeamId }, { "teams.home.id": awayTeamId }] }, { $or: [{ "teams.away.id": homeTeamId }, { "teams.away.id": awayTeamId }] }] }, { "fixture.status.short": "FT" }] })
+    lastMatches = await Match.find({ $or: [{ $or: [{ "teams.home.id": homeTeamId }, { "teams.home.id": awayTeamId }] }, { $or: [{ "teams.away.id": homeTeamId }, { "teams.away.id": awayTeamId }] }] })
   } catch (err) {
     const error = new HttpError("Something went wrong, please try again", 500)
     return next(error)

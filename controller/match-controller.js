@@ -23,8 +23,12 @@ const getSingleMatch = async (req, res, next) => {
 
 const getMatchesByDate = async (req, res, next) => {
   const dateStart = new Date(req.params.date)
+  const timeZone = req.params.tz
+  const timeZoneParse = parseInt((timeZone[0] === "m" ? "-" : "+") + timeZone.slice(1))
+  dateStart.setHours(dateStart.getHours() + timeZoneParse / 60)
   const dateEnd = new Date(dateStart)
   dateEnd.setDate(dateEnd.getDate() + 1)
+ 
 
   let matches
   try {
